@@ -330,14 +330,14 @@ class NoteService {
       },
       success: function(res) {
         if (res.result.data == true) {
+          console.log(res)
           //回调函数处理数据查询结果
           typeof successCallback == "function" && successCallback()
         } else {
-          console.log(err) //跳转出错页面
+          console.log("_addNote err",res) //跳转出错页面
           wx.redirectTo({
             url: '../../errorpage/errorpage'
           })
-          console.error(err)
         }
       },
       fail: function(err) {

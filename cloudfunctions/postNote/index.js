@@ -76,6 +76,7 @@ exports.main = async (event, context) => {
         growthValue: newGrowthValue
       }
     })
+  
   if (updateUserResult.stats.updated == 1) {
     result = true
 
@@ -89,8 +90,11 @@ exports.main = async (event, context) => {
   } else {
     errMsg = "系统异常，如有疑问请联系客服"
   }
+  console.log(updateUserResult)
+  result = true
   return {
     data: result,
-    errMsg: errMsg
+    errMsg: errMsg,
+    debug: updateUserResult
   }
 }

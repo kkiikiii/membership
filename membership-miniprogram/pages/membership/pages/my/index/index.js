@@ -126,6 +126,7 @@ Page({
               function(num) {
                 //设置用户信息
                 var myLevel = levels.filter(e => e.minGrowthValue <= myInfo.growthValue && myInfo.growthValue <= e.maxGrowthValue)[0]
+                console.log("levels:",levels)
                 var isMembershipExpired = myInfo.memberExpDate < new Date()
                 that.setData({
                   myLevel: myLevel,
