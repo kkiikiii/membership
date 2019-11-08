@@ -38,16 +38,16 @@ class UserService {
           //回调函数处理数据查询结果
           typeof success_callback == "function" && success_callback(res.data[0])
         } else {
-          console.log(err) //跳转出错页面
+          console.log("no user data",res) //跳转出错页面
           wx.redirectTo({
-            url: '../../errorpage/errorpage'
+            url: '/pages/membership/pages/errorpage/errorpage'
           })
         }
       })
       .catch(err => {
         console.log(err) //跳转出错页面
         wx.redirectTo({
-          url: '../../errorpage/errorpage'
+          url: '/pages/membership/pages/errorpage/errorpage'
         })
         console.error(err)
       })

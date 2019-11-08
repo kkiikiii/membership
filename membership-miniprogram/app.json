@@ -1,6 +1,5 @@
 {
   "pages": [
-    "pages/update_products/update_products",
     "pages/membership/pages/shop/index/index",
     "pages/membership/pages/shop/product/product",
     "pages/membership/pages/shop/search/search",
