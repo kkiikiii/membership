@@ -1,4 +1,5 @@
 // 初始化 云数据库
+wx.cloud.init()
 const db = wx.cloud.database()
 const _ = db.command
 
@@ -29,6 +30,19 @@ class UserService {
    *    isLocked //是否因触发风控规则被锁定
    * }
    */
+  isExist(openid, successCallback){
+    if (openid === undefined) {
+      typeof successCallback == "function" && successCallback("")
+      return
+    }
+    db.collection('user').where({
+      _openid:openid
+    }).get().then(res=>{
+      successCallback(res)
+    })
+  }
+
+
   getUserInfo(success_callback) {
     //执行数据库查询
     db.collection('user')
@@ -38,7 +52,7 @@ class UserService {
           //回调函数处理数据查询结果
           typeof success_callback == "function" && success_callback(res.data[0])
         } else {
-          console.log("no user data",res) //跳转出错页面
+          console.log("no user data", res) //跳转出错页面
           wx.redirectTo({
             url: '/pages/membership/pages/errorpage/errorpage'
           })
