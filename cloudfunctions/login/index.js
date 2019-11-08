@@ -23,32 +23,19 @@ exports.main = (event, context) => {
   // 获取 WX Context (微信调用上下文)，包括 OPENID、APPID、及 UNIONID（需满足 UNIONID 获取条件）等信息
   const wxContext = cloud.getWXContext()
 
-  //读取用户信息
-  var query = db.collection('user')
-  query = query
-    .where({
-      _openid: wxContext.OPENID
-    })
-       if (query==false) {
-         db.collection('user')
-           .add({
-             data: {
-               _openid: wxContext.OPENID, //云函数添加数据不会自动插入openid，需要手动定义
-               date: db.serverDate(),
-               growthValue: 0,
-               isLocked: false  
-             }
-           })
-       }
-  
-
-
-
 
   // 可执行其他自定义逻辑
   // console.log 的内容可以在云开发云函数调用日志查看
 
-
+  db.collection('user')
+    .add({
+      data: {
+        _openid: wxContext.OPENID, //云函数添加数据不会自动插入openid，需要手动定义
+        date: db.serverDate(),
+        growthValue: 0,
+        isLocked: false
+      }
+    })
 
   return {
     event,
@@ -56,6 +43,6 @@ exports.main = (event, context) => {
     appid: wxContext.APPID,
     unionid: wxContext.UNIONID,
     env: wxContext.ENV,
-   // user:user,
+    //user:a,
   }
 }
