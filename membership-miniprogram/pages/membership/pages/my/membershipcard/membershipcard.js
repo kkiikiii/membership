@@ -41,12 +41,13 @@ Page({
       //获取用户信息回调函数
       function (userinfo) {
         var myInfo = userinfo
+        console.log(userinfo)
         //设置用户信息
         var isMembershipExpired = myInfo.memberExpDate < new Date()
         that.setData({
           myInfo: myInfo,
           isMembershipExpired: isMembershipExpired,
-          memberExpDate: util.formatDate(myInfo.memberExpDate)
+          memberExpDate: util.formatDate(myInfo.date)
         })
         //显示界面
         that.setData({

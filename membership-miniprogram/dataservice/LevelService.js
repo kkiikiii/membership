@@ -40,6 +40,7 @@ class LevelService {
     db.collection('level')
       .get()
       .then(res => {
+        console.log(res)
         //回调函数处理数据查询结果
         typeof successCallback == "function" && successCallback(res.data)
       })
