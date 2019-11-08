@@ -1,4 +1,6 @@
+
 // 初始化 云数据库
+
 const db = wx.cloud.database()
 const _ = db.command
 
@@ -52,6 +54,8 @@ class UserService {
         console.error(err)
       })
   }
+
+ 
 }
 
 export default UserService

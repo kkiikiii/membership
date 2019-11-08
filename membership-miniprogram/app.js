@@ -1,4 +1,7 @@
 /* 参考https://developers.weixin.qq.com/miniprogram/dev/reference/api/App.html */
+//import UserService from './dataservice/UserService.js'
+//var userService = new UserService()
+
 App({
   /**
    * 生命周期回调——监听小程序初始化。
@@ -22,6 +25,7 @@ App({
         console.log(res)
         this.globalData.isLocked = res.result.isLocked
         this.globalData.openid = res.result.openid
+      
       },
       fail: err => {
         console.log(err) //跳转出错页面
