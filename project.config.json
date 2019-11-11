@@ -6,7 +6,8 @@
 		"es6": true,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"checkSiteMap": false
 	},
 	"appid": "wx48b03c0938030a25",
 	"projectname": "tt",

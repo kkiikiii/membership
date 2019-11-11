@@ -28,6 +28,7 @@ const MAX_LIMIT = 100
 exports.main = async (event, context) => {
   var weRunData = event.weRunData
   await syncGrowthValue(weRunData.data.stepInfoList)
+  console.log("云函数" + weRunData.data.stepInfoList)
   return await syncPoint(weRunData.data.stepInfoList)
 }
 
@@ -96,7 +97,7 @@ async function syncPoint(weRunData) {
         timestamp: data.timestamp,
         //云函数是在服务端操作，对所有用户的数据都有操作权限
         //在云函数中查询用户数据，需要添加openid的查询条件
-        _openid: wxContext.OPENID
+        _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
       })
       .get()
     if (queryResult.data.length <= 0) {
@@ -104,7 +105,7 @@ async function syncPoint(weRunData) {
       await db.collection('user_point')
         .add({
           data: {
-            _openid: wxContext.OPENID, //云函数添加数据不会自动插入openid，需要手动定义
+            _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI', //云函数添加数据不会自动插入openid，需要手动定义
             date: db.serverDate(),
             changePoints: data.step,
             operation: "微信运动",
@@ -139,7 +140,7 @@ async function syncPoint(weRunData) {
   const tasks = []
   for (let i = 0; i < batchTimes; i++) {
     const promise = db.collection('user_point').where({
-      _openid: wxContext.OPENID
+      _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
     }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
     tasks.push(promise)
   }
@@ -156,7 +157,7 @@ async function syncPoint(weRunData) {
   });
   await db.collection('user')
     .where({
-      _openid: wxContext.OPENID
+      _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
     })
     .update({
       data: {
@@ -168,7 +169,7 @@ async function syncPoint(weRunData) {
   await cloud.callFunction({
     name: 'pointRiskControl',
     data: {
-      openid: wxContext.OPENID
+      openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
     }
   })
 
@@ -180,7 +181,7 @@ async function syncPoint(weRunData) {
  * @param {array} weRunData 从小程序API获取到的微信运动数据
  */
 async function syncGrowthValue(weRunData) {
-  const wxContext = cloud.getWXContext()
+  //const wxContext = cloud.getWXContext()
 
   //根据微信运动数据更新成长值
   for (var i in weRunData) {
@@ -191,7 +192,7 @@ async function syncGrowthValue(weRunData) {
         timestamp: data.timestamp,
         //云函数是在服务端操作，对所有用户的数据都有操作权限
         //在云函数中查询用户数据，需要添加openid的查询条件
-        _openid: wxContext.OPENID
+        _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
       })
       .get()
     if (queryResult.data.length <= 0) {
@@ -199,7 +200,7 @@ async function syncGrowthValue(weRunData) {
       await db.collection('user_growth_value')
         .add({
           data: {
-            _openid: wxContext.OPENID, //云函数添加数据不会自动插入openid，需要手动定义
+            _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI', //云函数添加数据不会自动插入openid，需要手动定义
             date: db.serverDate(),
             changeGrowthValue: data.step,
             operation: "微信运动",
@@ -226,13 +227,14 @@ async function syncGrowthValue(weRunData) {
   // 先取出集合记录总数
   const countResult = await db.collection('user_growth_value').count()
   const total = countResult.total
+  console.log("集合总数" + total)
   // 计算需分几次取
   const batchTimes = Math.ceil(total / MAX_LIMIT)
   // 承载所有读操作的 promise 的数组
   const tasks = []
   for (let i = 0; i < batchTimes; i++) {
     const promise = db.collection('user_growth_value').where({
-      _openid: wxContext.OPENID
+      _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
     }).skip(i * MAX_LIMIT).limit(MAX_LIMIT).get()
     tasks.push(promise)
   }
@@ -249,7 +251,7 @@ async function syncGrowthValue(weRunData) {
   });
   await db.collection('user')
     .where({
-      _openid: wxContext.OPENID
+      _openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
     })
     .update({
       data: {
@@ -261,7 +263,7 @@ async function syncGrowthValue(weRunData) {
   await cloud.callFunction({
     name: 'growthValueRiskControl',
     data: {
-      openid: wxContext.OPENID
+      openid: 'oHgGg4kct1HKE3BvtyGtItmKR_oI'
     }
   })
 }

@@ -101,8 +101,12 @@ Page({
         //设置页面显示数据
         var addPointNum = 0
         for (var i in weRunToPointData) {
+          console.log(weRunToPointData[i])
+          console.log(typeof (weRunToPointData[i]))
           addPointNum += weRunToPointData[i].changePoints
           weRunToPointData[i].time = util.formatDate(new Date(weRunToPointData[i].time * 1000))
+          //var newDate = new Date()
+
         }
         that.setData({
           addPointNum: addPointNum,
